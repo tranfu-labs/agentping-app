@@ -85,6 +85,11 @@
               <a class="button primary" href="downloads/AgentPing.app.zip" download><svg class="button-icon" aria-hidden="true"><use href="assets/visuals.svg#icon-download"></use></svg>下载菜单栏工具</a>
               <a class="button secondary" href="../dist/AgentPing.app"><svg class="button-icon" aria-hidden="true"><use href="assets/visuals.svg#icon-terminal"></use></svg>查看本地 App</a>
             </div>
+            <div class="install-note">
+              <h3>如果 macOS 提示“已损坏，无法打开”</h3>
+              <p>这是下载隔离触发的安全拦截。解压后打开终端运行下面命令，再双击 App。</p>
+              <pre class="code-block">xattr -dr com.apple.quarantine ~/Downloads/AgentPing.app</pre>
+            </div>
           </div>
           <div class="card">
             <h3>当前能力</h3>

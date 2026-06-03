@@ -159,7 +159,13 @@ open dist/AgentPing.app
 重新生成下载压缩包：
 
 ```bash
-ditto -c -k --sequesterRsrc --keepParent dist/AgentPing.app website/downloads/AgentPing.app.zip
+ditto -c -k --norsrc --keepParent dist/AgentPing.app website/downloads/AgentPing.app.zip
+```
+
+如果从浏览器下载后 macOS 提示“已损坏，无法打开”，通常是下载隔离导致。解压后运行：
+
+```bash
+xattr -dr com.apple.quarantine ~/Downloads/AgentPing.app
 ```
 
 退出方式：点开菜单栏里的 Ageng网络医生，选择“退出 Ageng网络医生”。
@@ -171,7 +177,7 @@ ditto -c -k --sequesterRsrc --keepParent dist/AgentPing.app website/downloads/Ag
 ```bash
 swift build -c release
 sh Scripts/package_app.sh
-ditto -c -k --sequesterRsrc --keepParent dist/AgentPing.app website/downloads/AgentPing.app.zip
+ditto -c -k --norsrc --keepParent dist/AgentPing.app website/downloads/AgentPing.app.zip
 dist/AgentPing.app/Contents/MacOS/AgentPingMenu --diagnose-once
 python3 -m http.server 8088 --directory website
 node Scripts/verify_website.mjs
