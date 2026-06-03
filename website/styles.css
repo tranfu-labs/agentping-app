@@ -292,6 +292,8 @@ p {
   border-radius: 50%;
   color: var(--brand);
   background: var(--brand-soft);
+  font-size: 14px;
+  line-height: 1;
 }
 
 .trust-icon .inline-icon {

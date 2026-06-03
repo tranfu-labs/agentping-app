@@ -180,16 +180,16 @@ node Scripts/verify_website.mjs
 创建 tag 和 GitHub Release，下面的版本号按当次发布替换：
 
 ```bash
-git tag -a v0.1.1 -m "Ageng网络医生 v0.1.1"
+git tag -a vX.Y.Z -m "Ageng网络医生 vX.Y.Z"
 git push origin main --tags
-gh release create v0.1.1 website/downloads/AgentPing.app.zip --repo tranfu-labs/agentping-app --title "Ageng网络医生 v0.1.1" --notes-file RELEASE_NOTES.md --latest
+gh release create vX.Y.Z website/downloads/AgentPing.app.zip --repo tranfu-labs/agentping-app --title "Ageng网络医生 vX.Y.Z" --notes-file RELEASE_NOTES.md --latest
 ```
 
 发布后核验：
 
 ```bash
 gh release list --repo tranfu-labs/agentping-app --limit 5
-gh release view v0.1.1 --repo tranfu-labs/agentping-app --json name,tagName,isPrerelease,assets,url
+gh release view vX.Y.Z --repo tranfu-labs/agentping-app --json name,tagName,isPrerelease,assets,url
 ```
 
 ## 产品方案
