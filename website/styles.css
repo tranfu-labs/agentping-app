@@ -84,8 +84,8 @@ h3 {
 h1 {
   max-width: 760px;
   margin-bottom: 18px;
-  font-size: 58px;
-  line-height: 1.06;
+  font-size: 62px;
+  line-height: 1.02;
   font-weight: 800;
 }
 
@@ -235,6 +235,11 @@ p {
   box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.13), 0 12px 24px rgba(230, 49, 56, 0.18);
 }
 
+.headline-line {
+  display: block;
+  width: fit-content;
+}
+
 .inline-icon,
 .button-icon,
 .tag-icon {
@@ -256,22 +261,57 @@ p {
 .trust-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 18px;
+  gap: 8px;
+  margin-top: 20px;
 }
 
-.trust-row span {
-  min-height: 34px;
+.trust-chip {
+  min-height: 38px;
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  padding: 7px 10px;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  color: var(--muted);
-  background: var(--surface);
+  gap: 8px;
+  padding: 6px 11px 6px 7px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.86);
+  box-shadow: 0 8px 24px rgba(12, 12, 12, 0.05);
   font-size: 13px;
-  font-weight: 680;
+  font-weight: 760;
+}
+
+.trust-chip strong {
+  font: inherit;
+}
+
+.trust-icon {
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--brand);
+  background: var(--brand-soft);
+}
+
+.trust-icon .inline-icon {
+  width: 15px;
+  height: 15px;
+}
+
+.trust-green .trust-icon {
+  color: var(--green);
+  background: var(--green-soft);
+}
+
+.trust-blue .trust-icon {
+  color: var(--blue);
+  background: var(--blue-soft);
+}
+
+.trust-red .trust-icon {
+  color: var(--brand);
+  background: var(--brand-soft);
 }
 
 .actions {
@@ -332,12 +372,72 @@ p {
   border-color: var(--ink);
 }
 
-.hero-product {
-  border: 1px solid var(--line-strong);
+.hero-art-card {
+  position: relative;
+  margin: 0;
   border-radius: 8px;
   overflow: hidden;
-  background: var(--surface);
-  box-shadow: var(--shadow-md);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(250, 250, 250, 0.82));
+  box-shadow:
+    0 26px 80px rgba(12, 12, 12, 0.12),
+    0 0 0 1px rgba(212, 212, 216, 0.86);
+}
+
+.hero-art-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  border-radius: inherit;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.hero-art-image {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1586 / 992;
+  object-fit: cover;
+}
+
+.hero-art-caption {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  z-index: 2;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid rgba(212, 212, 216, 0.76);
+  border-radius: 7px;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(14px);
+  font-size: 13px;
+  font-style: normal;
+}
+
+.hero-art-caption strong {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 780;
+  white-space: nowrap;
+}
+
+.hero-art-caption i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #27ba45;
+  box-shadow: 0 0 0 5px rgba(39, 186, 69, 0.13);
 }
 
 .panel-header {
@@ -1515,7 +1615,7 @@ input:focus {
     grid-template-columns: 1fr;
   }
 
-  .hero-product {
+  .hero-art-card {
     max-width: 720px;
   }
 
@@ -1618,33 +1718,21 @@ input:focus {
     font-size: 16px;
   }
 
-  .trust-row span {
+  .trust-chip {
     width: 100%;
   }
 
-  .status-visual {
-    grid-template-columns: 1fr;
-    padding: 18px;
+  .hero-art-caption {
+    position: static;
+    border-width: 1px 0 0;
+    border-radius: 0;
+    background: var(--surface);
+    backdrop-filter: none;
   }
 
-  .visual-path {
-    height: 52px;
-  }
-
-  .visual-path::before,
-  .visual-path::after {
-    left: 30%;
-    right: 30%;
-  }
-
-  .visual-path::before {
-    top: 18px;
-    transform: rotate(90deg);
-  }
-
-  .visual-path::after {
-    top: 30px;
-    transform: rotate(90deg);
+  .hero-art-image {
+    min-height: 250px;
+    object-position: 42% center;
   }
 
   .page-visual {

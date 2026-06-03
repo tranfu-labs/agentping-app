@@ -59,46 +59,25 @@
         <div class="hero-layout">
           <div class="hero-content">
             <p class="eyebrow">Agent 卡住时的网络自检工具</p>
-            <h1>看清网络，<span class="text-highlight">再继续跑 Agent。</span></h1>
+            <h1><span class="headline-line">看清网络</span><span class="text-highlight headline-line">再继续跑 Agent。</span></h1>
             <p class="hero-copy">Codex、Claude Code、Cursor 没输出时，先别急着重启。Ageng网络医生帮你判断是 API 访问失败、本地代理没接管，还是当前节点不稳定。</p>
             <div class="actions">
               <a class="button primary" href="tool.html"><svg class="button-icon" aria-hidden="true"><use href="assets/visuals.svg#icon-download"></use></svg>下载监控工具</a>
               <a class="button secondary" href="articles.html"><svg class="button-icon" aria-hidden="true"><use href="assets/visuals.svg#icon-book"></use></svg>查看常见问题</a>
             </div>
             <div class="trust-row" aria-label="Ageng网络医生 关键能力">
-              <span><svg class="inline-icon" aria-hidden="true"><use href="assets/visuals.svg#icon-radar"></use></svg>红黄绿判断</span>
-              <span><svg class="inline-icon" aria-hidden="true"><use href="assets/visuals.svg#icon-globe"></use></svg>出口地区</span>
-              <span><svg class="inline-icon" aria-hidden="true"><use href="assets/visuals.svg#icon-shield"></use></svg>不读取 API Key</span>
+              <span class="trust-chip trust-green"><span class="trust-icon"><svg class="inline-icon" aria-hidden="true"><use href="assets/visuals.svg#icon-radar"></use></svg></span><strong>红黄绿判断</strong></span>
+              <span class="trust-chip trust-blue"><span class="trust-icon"><svg class="inline-icon" aria-hidden="true"><use href="assets/visuals.svg#icon-globe"></use></svg></span><strong>出口地区</strong></span>
+              <span class="trust-chip trust-red"><span class="trust-icon"><svg class="inline-icon" aria-hidden="true"><use href="assets/visuals.svg#icon-shield"></use></svg></span><strong>不读取 API Key</strong></span>
             </div>
           </div>
-          <div class="hero-product" aria-label="Ageng网络医生 状态面板示例">
-            <div class="panel-header">
-              <span class="panel-title"><svg class="inline-icon" aria-hidden="true"><use href="assets/visuals.svg#icon-radar"></use></svg>现在还能不能跑 Agent？</span>
-              <span class="panel-time">刚刚检查</span>
-            </div>
-            <div class="status-visual" aria-hidden="true">
-              <div class="visual-node source"><svg><use href="assets/visuals.svg#icon-terminal"></use></svg><span>Mac</span></div>
-              <div class="visual-path"><span></span><span></span></div>
-              <div class="visual-node cloud"><svg><use href="assets/visuals.svg#icon-cloud"></use></svg><span>API</span></div>
-              <div class="visual-node exit"><svg><use href="assets/visuals.svg#icon-globe"></use></svg><span>Tokyo</span></div>
-            </div>
-            <div class="status-summary">
-              <div class="status-card"><strong>绿</strong><span>Codex 可以继续</span></div>
-              <div class="status-card"><strong>红</strong><span>Claude 先暂停</span></div>
-              <div class="status-card"><strong>186ms</strong><span>最长链路耗时</span></div>
-            </div>
-            <table class="status-table">
-              <thead>
-                <tr><th>你在用</th><th>结果</th><th>可能原因</th><th>下一步</th></tr>
-              </thead>
-              <tbody>
-                <tr><td>Codex</td><td><span class="pill green">可继续</span></td><td>OpenAI 链路正常</td><td>继续当前任务</td></tr>
-                <tr><td>Claude Code</td><td><span class="pill red">先暂停</span></td><td>Anthropic 出口异常</td><td>换节点后再试</td></tr>
-                <tr><td>本地代理</td><td><span class="pill yellow">要确认</span></td><td>终端代理未命中</td><td>检查分流规则</td></tr>
-              </tbody>
-            </table>
-            <div class="product-note">结论：不要先重启 Agent。先换 Claude 可用节点，避免把任务上下文跑丢。</div>
-          </div>
+          <figure class="hero-art-card" aria-label="Ageng网络医生 网络链路监控插图">
+            <img class="hero-art-image" src="assets/agent-network-doctor-hero.png" width="1586" height="992" alt="Ageng网络医生显示菜单栏状态、出口节点、链路延迟和红黄绿诊断结果">
+            <figcaption class="hero-art-caption">
+              <span>现在还能不能跑 Agent？</span>
+              <strong><i></i>186ms 可继续</strong>
+            </figcaption>
+          </figure>
         </div>
       </section>
 
