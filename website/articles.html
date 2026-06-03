@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="author" content="TranFu">
+    <meta name="robots" content="index, follow">
+    <title>常见问题 - Ageng网络医生</title>
+    <meta name="description" content="Codex、Claude Code、Cursor 卡住、断流、超时、代理失效时怎么排查：按现象定位网络问题，整理团队 VPN/VPS 搭建和使用流程。">
+    <link rel="canonical" href="https://agentping-app.tranfu.com/articles.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Ageng网络医生 by TranFu">
+    <meta property="og:locale" content="zh_CN">
+    <meta property="og:url" content="https://agentping-app.tranfu.com/articles.html">
+    <meta property="og:title" content="常见问题 - Ageng网络医生">
+    <meta property="og:description" content="Codex、Claude Code、Cursor 卡住、断流、超时、代理失效时怎么排查：按现象定位网络问题，整理团队 VPN/VPS 搭建和使用流程。">
+    <meta property="og:image" content="https://tranfu.com/brand/logo/social/og-image-1200x630.png">
+    <meta property="og:image:secure_url" content="https://tranfu.com/brand/logo/social/og-image-1200x630.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="TranFu Ageng网络医生 网络监控工具">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="常见问题 - Ageng网络医生">
+    <meta name="twitter:description" content="Codex、Claude Code、Cursor 卡住、断流、超时、代理失效时怎么排查：按现象定位网络问题，整理团队 VPN/VPS 搭建和使用流程。">
+    <meta name="twitter:image" content="https://tranfu.com/brand/logo/social/og-image-1200x630.png">
+    <link rel="image_src" href="https://tranfu.com/brand/logo/social/og-image-1200x630.png">
+    <link rel="shortcut icon" href="assets/brand/favicon.ico">
+    <link rel="icon" type="image/svg+xml" href="assets/brand/logo-badge-rounded-rect-on-light.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/brand/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/brand/apple-touch-icon-180.png">
+    <link rel="apple-touch-icon-precomposed" sizes="180x180" href="assets/brand/apple-touch-icon-180.png">
+    <link rel="manifest" href="site.webmanifest">
+    <meta name="theme-color" content="#E63138">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="styles.css">
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://tranfu.com#organization","name":"TranFu","url":"https://tranfu.com","logo":"https://tranfu.com/brand/logo/png/apple-touch-icon-180.png","description":"让 AI Agent 干活，你只做决策"}</script>
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav">
+        <a class="brand" href="index.html"><img class="brand-logo" src="assets/brand/logo-symbol-primary-on-light.svg" width="28" height="28" alt="TranFu"><span>Ageng网络医生</span></a>
+        <div class="nav-links">
+          <a href="index.html">首页</a>
+          <a href="tool.html">工具说明</a>
+          <a href="vpn.html">团队网络</a>
+          <a class="active" href="articles.html">常见文章</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="page-hero">
+        <div class="wrap page-hero-grid">
+          <div class="page-title">
+            <p class="eyebrow">常见文章</p>
+            <h1>遇到卡住时，先按现象查。</h1>
+            <p>这里不从网络术语开始。先看 Codex、Claude Code、Cursor 的具体表现，再按 Ageng网络医生的颜色、延迟和出口地区决定下一步。</p>
+          </div>
+          <div class="page-visual article-visual" aria-label="网络问题知识库示意">
+            <div class="knowledge-card primary">
+              <svg aria-hidden="true"><use href="assets/visuals.svg#icon-book"></use></svg>
+              <strong>12 篇排查文章</strong>
+              <span>Codex / Claude / Cursor</span>
+            </div>
+            <div class="knowledge-grid">
+              <span><svg class="inline-icon" aria-hidden="true"><use href="assets/visuals.svg#icon-radar"></use></svg>按颜色判断</span>
+              <span><svg class="inline-icon" aria-hidden="true"><use href="assets/visuals.svg#icon-route"></use></svg>按链路定位</span>
+              <span><svg class="inline-icon" aria-hidden="true"><use href="assets/visuals.svg#icon-users"></use></svg>给团队报障</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="wrap">
+          <div class="article-hub">
+            <aside class="article-diagnostic">
+              <span class="article-tag"><svg class="tag-icon" aria-hidden="true"><use href="assets/visuals.svg#icon-radar"></use></svg>先做这 4 步</span>
+              <h2>别先重启软件，先判断是哪一段断了。</h2>
+              <ol>
+                <li><strong>看官方状态。</strong>如果 OpenAI 或 Claude 官方正在异常，先不要折腾本地网络。</li>
+                <li><strong>看 Ageng网络医生。</strong>绿色可继续，黄色跑短任务，红色先换节点或查代理。</li>
+                <li><strong>看出口地区。</strong>同一个 VPN 在线，不代表当前出口适合跑 Agent。</li>
+                <li><strong>按工具处理。</strong>Codex、Claude Code、Cursor 的失败表现不一样。</li>
+              </ol>
+            </aside>
+
+            <div class="article-index-panel">
+              <div class="section-head compact">
+                <p class="eyebrow">问题索引</p>
+                <h2>按你现在看到的现象进入。</h2>
+              </div>
+              <div class="article-list">
+                <a class="article-item" href="#codex-working">
+                  <span class="article-tag">Codex</span>
+                  <div><h2>Codex 一直 Working，几分钟后才恢复</h2><p>判断是 OpenAI 链路、WebSocket 断流，还是服务侧响应慢。</p></div>
+                </a>
+                <a class="article-item" href="#codex-stream">
+                  <span class="article-tag">Codex</span>
+                  <div><h2>Codex 提示 stream disconnected</h2><p>常见于长连接被代理、网关或网络中间层提前断开。</p></div>
+                </a>
+                <a class="article-item" href="#claude-stuck">
+                  <span class="article-tag">Claude Code</span>
+                  <div><h2>Claude Code 一直没输出</h2><p>先看 Anthropic 链路，再看本地代理和任务本身。</p></div>
+                </a>
+                <a class="article-item" href="#claude-timeout">
+                  <span class="article-tag">Claude Code</span>
+                  <div><h2>Claude Code 报超时、fetch failed、ECONNRESET</h2><p>把错误拆成 DNS、代理、证书、官方服务四类来查。</p></div>
+                </a>
+                <a class="article-item" href="#cursor-connection">
+                  <span class="article-tag">Cursor</span>
+                  <div><h2>Cursor 连接失败或反复 Reconnecting</h2><p>先跑 Cursor 自带诊断，再看代理、HTTP/2 和防火墙。</p></div>
+                </a>
+                <a class="article-item" href="#cursor-proxy-cache">
+                  <span class="article-tag">Cursor</span>
+                  <div><h2>Cursor 还在走已关闭的本地代理</h2><p>127.0.0.1:10809 这类残留代理会让 AI 功能直接不可用。</p></div>
+                </a>
+                <a class="article-item" href="#openai-ok-anthropic-bad">
+                  <span class="article-tag">链路差异</span>
+                  <div><h2>OpenAI 能用，Claude 不行</h2><p>不同服务不是同一条链路，浏览器能打开网页也不代表 API 可用。</p></div>
+                </a>
+                <a class="article-item" href="#vpn-online-not-enough">
+                  <span class="article-tag">VPN 节点</span>
+                  <div><h2>VPN 显示在线，但 Agent 还是卡</h2><p>节点在线只是第一步，长任务还需要低抖动、不中断。</p></div>
+                </a>
+                <a class="article-item" href="#vpn-build-flow">
+                  <span class="article-tag">团队网络</span>
+                  <div><h2>团队稳定 VPN / VPS 搭建流程</h2><p>把节点采购、搭建、订阅分发、验证和维护整理成固定流程。</p></div>
+                </a>
+                <a class="article-item" href="#before-long-task">
+                  <span class="article-tag">工作流</span>
+                  <div><h2>跑长任务前，先花 30 秒自检</h2><p>减少中途断掉、上下文浪费和重复返工。</p></div>
+                </a>
+                <a class="article-item" href="#team-report">
+                  <span class="article-tag">团队协作</span>
+                  <div><h2>出问题时，怎么把信息发给管理员</h2><p>不要只说“卡了”，要带上颜色、延迟、出口地区和报错。</p></div>
+                </a>
+                <a class="article-item" href="#sources">
+                  <span class="article-tag">资料来源</span>
+                  <div><h2>公开资料和状态页</h2><p>收录官方文档、官方状态页和社区真实问题记录。</p></div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section soft">
+        <div class="wrap article-body">
+          <div class="quick-guide">
+            <h2>先按颜色决定下一步</h2>
+            <div class="grid three">
+              <div class="card"><h3><span class="status-dot"></span>绿色</h3><p>网络大概率可用。若 Agent 仍不动，再看任务长度、工具进程或模型响应。</p></div>
+              <div class="card"><h3><span class="status-dot yellow"></span>黄色</h3><p>短任务可以试，长任务先换更稳定节点，避免中途失败。</p></div>
+              <div class="card"><h3><span class="status-dot red"></span>红色</h3><p>先暂停 Agent，不要继续堆上下文。按提示换节点或查代理。</p></div>
+            </div>
+          </div>
+
+          <div class="article-grid">
+            <article class="article-card" id="codex-working">
+              <span class="article-tag">Codex</span>
+              <h2>Codex 一直 Working，几分钟后才恢复</h2>
+              <p class="article-lede">你看到的是 Codex 还在转，但没有新输出。公开问题记录里，确实有人遇到长时间等待后才重试恢复的情况。</p>
+              <h3>先判断</h3>
+              <p>如果 Ageng网络医生里 OpenAI 是红色，先处理网络。如果 OpenAI 是绿色，但 Codex 卡住时间很固定，可能是长连接已经断了，工具还没及时发现。</p>
+              <h3>怎么做</h3>
+              <p>先复制 Ageng网络医生诊断报告，再换一个更稳定、延迟更低的出口节点。长任务建议拆成几段跑，避免一次卡住损失整段上下文。</p>
+            </article>
+
+            <article class="article-card" id="codex-stream">
+              <span class="article-tag">Codex</span>
+              <h2>Codex 提示 stream disconnected</h2>
+              <p class="article-lede">这类问题通常不是“模型不会答”，而是流式连接中途断了。代理节点、公司网关、浏览器式代理都可能影响长连接。</p>
+              <h3>先判断</h3>
+              <p>看 Ageng网络医生是否显示黄色或红色，再看出口地区是否刚切换过。如果短请求正常、长任务断流，重点怀疑节点稳定性。</p>
+              <h3>怎么做</h3>
+              <p>优先换到团队标记为“长任务稳定”的节点；如果只是临时使用，先暂停大规模编辑任务，等链路稳定后继续。</p>
+            </article>
+
+            <article class="article-card" id="claude-stuck">
+              <span class="article-tag">Claude Code</span>
+              <h2>Claude Code 一直没输出：先看 Anthropic 是否红</h2>
+              <p class="article-lede">Claude Code 没有输出，不一定是软件坏了。很多时候是 Anthropic 链路不可用，Agent 还在等网络返回。</p>
+              <h3>先判断</h3>
+              <p>如果 Anthropic 是红色，而 OpenAI 是绿色，更可能是当前出口节点不适合访问 Claude。此时优先换节点，不要马上重启工具。</p>
+              <h3>怎么做</h3>
+              <p>换节点后重新跑 Ageng网络医生。Anthropic 回到绿色再继续；如果仍然无响应，再考虑任务太长、工具进程异常或 Claude 官方服务异常。</p>
+            </article>
+
+            <article class="article-card" id="claude-timeout">
+              <span class="article-tag">Claude Code</span>
+              <h2>Claude Code 报超时、fetch failed、ECONNRESET</h2>
+              <p class="article-lede">Claude 官方文档把 Unable to connect、ECONNRESET、ETIMEDOUT、fetch failed 都归到网络连接类问题。</p>
+              <h3>先判断</h3>
+              <p>不要只看浏览器能不能打开 Claude 网页。Claude Code 访问的是 API 链路，终端环境、代理变量、证书和防火墙都会影响它。</p>
+              <h3>怎么做</h3>
+              <p>先看 Ageng网络医生的 Anthropic 结果。如果是红色，换节点；如果是绿色但 Claude Code 报错，检查终端是否继承了代理，或是否有旧 VPN 残留路由。</p>
+            </article>
+
+            <article class="article-card" id="cursor-connection">
+              <span class="article-tag">Cursor</span>
+              <h2>Cursor 连接失败或反复 Reconnecting</h2>
+              <p class="article-lede">Cursor 的 AI 功能依赖后端服务和流式返回。社区里高频出现的排查方向是网络诊断、代理、HTTP/2、VPN 和防火墙。</p>
+              <h3>先判断</h3>
+              <p>先跑 Cursor 设置里的网络诊断，再看 Ageng网络医生的 OpenAI 和 Anthropic 是否正常。如果模型切换后才失败，要把模型服务商也纳入判断。</p>
+              <h3>怎么做</h3>
+              <p>如果诊断提示连接失败，先换稳定节点；如果只在某些网络下失败，可以尝试关闭 HTTP/2 兼容问题或重新允许 Cursor 通过防火墙。</p>
+            </article>
+
+            <article class="article-card" id="cursor-proxy-cache">
+              <span class="article-tag">Cursor</span>
+              <h2>Cursor 还在走已关闭的本地代理</h2>
+              <p class="article-lede">有用户反馈 Cursor 仍然尝试连接 127.0.0.1:10809，导致 ECONNRESET。这个现象很像“代理客户端关了，但软件还记着旧代理”。</p>
+              <h3>先判断</h3>
+              <p>如果代理客户端已经关闭，但 Cursor 诊断里还出现本地端口，优先怀疑系统代理、软件缓存或启动参数残留。</p>
+              <h3>怎么做</h3>
+              <p>先完全退出 Cursor 和代理客户端，再检查系统代理设置。团队环境下建议统一使用 TUN 或明确的代理入口，减少每个软件各自缓存代理的情况。</p>
+            </article>
+
+            <article class="article-card" id="openai-ok-anthropic-bad">
+              <span class="article-tag">链路差异</span>
+              <h2>OpenAI 能用，Claude 不行：不是一条链路</h2>
+              <p class="article-lede">OpenAI 能访问，不代表 Anthropic 也能访问。它们使用不同域名、不同服务端入口，也可能被不同出口策略影响。</p>
+              <h3>先判断</h3>
+              <p>如果只有 Anthropic 异常，优先判断为节点出口问题、代理规则问题或 Anthropic 服务侧问题。</p>
+              <h3>怎么做</h3>
+              <p>不要用“浏览器能打开某个网站”来判断 Agent API 链路一定正常。用 Ageng网络医生看对应服务，再决定换节点还是查官方状态。</p>
+            </article>
+
+            <article class="article-card" id="cursor-models">
+              <span class="article-tag">Cursor</span>
+              <h2>Cursor 换模型后表现不一样：正常吗？</h2>
+              <p class="article-lede">正常。Cursor 里不同模型可能来自不同服务商。你切换模型时，实际访问的接口、域名、出口策略都可能变化。</p>
+              <h3>先判断</h3>
+              <p>OpenAI 模型可用，不代表 Anthropic 模型也可用；自定义 API 又可能走另一套域名和代理规则。</p>
+              <h3>怎么做</h3>
+              <p>遇到这种情况，先用 Ageng网络医生看对应链路，再决定是换模型、换节点，还是调整本地代理规则。</p>
+            </article>
+
+            <article class="article-card" id="vpn-online-not-enough">
+              <span class="article-tag">VPN 节点</span>
+              <h2>VPN 显示在线，但 Agent 还是卡</h2>
+              <p class="article-lede">代理客户端显示在线，只说明它和节点之间可能连通。Agent 真正需要的是从本机到 API 服务之间的完整链路稳定。</p>
+              <h3>先判断</h3>
+              <p>共享人数多、出口质量差、抖动高、分流规则没命中，都会让 Agent 长任务卡住。</p>
+              <h3>怎么做</h3>
+              <p>Ageng网络医生要看的不是“节点在线”，而是“Agent 需要访问的接口是否真的可用”。黄色适合短任务，长任务尽量等绿色。</p>
+            </article>
+
+            <article class="article-card featured" id="vpn-build-flow">
+              <span class="article-tag">团队网络</span>
+              <h2>团队稳定 VPN / VPS 搭建流程</h2>
+              <p class="article-lede">这篇整理给团队管理员看：目标不是“能翻出去”，而是让 Codex、Claude Code、Cursor 长任务更稳定。</p>
+              <div class="process-list">
+                <div><strong>1. 选地区。</strong><p>优先选日本、新加坡、香港、美国西海岸中实际延迟低、出口干净的地区，不只看价格。</p></div>
+                <div><strong>2. 准备 VPS。</strong><p>每个节点单独记录供应商、地区、到期时间、用途和负责人，避免节点坏了没人知道。</p></div>
+                <div><strong>3. 部署网关。</strong><p>团队内部统一协议、端口和订阅格式，避免每个人自己乱配导致排查困难。</p></div>
+                <div><strong>4. 分发订阅。</strong><p>把个人节点、团队 VPS、备用节点分组；长任务节点单独标记，减少误用。</p></div>
+                <div><strong>5. 导入 Clash。</strong><p>使用 Clash Verge Rev 等仍在维护的软件，导入订阅后检查规则、TUN 和系统代理是否按预期工作。</p></div>
+                <div><strong>6. 用 Ageng网络医生验收。</strong><p>节点上线后不要只测网页。连续测试 OpenAI、Anthropic、出口地区和延迟，稳定后再开放给团队。</p></div>
+              </div>
+              <p>建议保留一个“只给 AI Agent 用”的策略组。浏览网页和跑 Agent 分开，可以减少长任务被临时切节点打断。</p>
+            </article>
+
+            <article class="article-card" id="before-long-task">
+              <span class="article-tag">工作流</span>
+              <h2>跑长任务前：先花 30 秒自检</h2>
+              <p class="article-lede">长任务最怕跑到一半卡住。开始前先确认链路，可以少浪费很多上下文。</p>
+              <h3>先判断</h3>
+              <p>OpenAI 和 Anthropic 都是绿色，再开始需要长时间执行的任务；如果显示黄色，优先跑短任务或先换节点。</p>
+              <h3>怎么做</h3>
+              <p>如果显示红色，先排查网络，不要直接把复杂任务交给 Agent。团队成员可以把诊断报告发给管理员处理。</p>
+            </article>
+
+            <article class="article-card" id="team-report">
+              <span class="article-tag">团队协作</span>
+              <h2>出问题时，怎么把信息发给管理员</h2>
+              <p class="article-lede">“卡了”“不能用”很难排查。最好把问题变成可判断的信息。</p>
+              <h3>建议带上</h3>
+              <p>工具名称、当时颜色、OpenAI/Anthropic 延迟、出口国家或地区、代理客户端、报错文字、发生时间。</p>
+              <h3>怎么做</h3>
+              <p>在 Ageng网络医生菜单里复制诊断报告，直接发到团队群。管理员可以更快判断是个人设备、节点、规则还是官方服务问题。</p>
+            </article>
+          </div>
+
+          <section class="source-panel" id="sources">
+            <div class="section-head compact">
+              <p class="eyebrow">参考资料</p>
+              <h2>公开资料和状态页</h2>
+            </div>
+            <div class="source-grid">
+              <a class="source-card" href="https://code.claude.com/docs/en/errors" target="_blank" rel="noreferrer"><strong>Claude Code 错误说明</strong><span>官方错误分类、超时、连接失败、代理和证书问题。</span></a>
+              <a class="source-card" href="https://status.claude.com/" target="_blank" rel="noreferrer"><strong>Claude 状态页</strong><span>确认 Claude API、Claude Code 是否有官方异常。</span></a>
+              <a class="source-card" href="https://status.openai.com/" target="_blank" rel="noreferrer"><strong>OpenAI 状态页</strong><span>确认 Codex、Responses API、ChatGPT 是否有官方异常。</span></a>
+              <a class="source-card" href="https://github.com/openai/codex/issues/23807" target="_blank" rel="noreferrer"><strong>Codex 断流问题记录</strong><span>社区记录的长时间 Working、stream disconnected 等现象。</span></a>
+              <a class="source-card" href="https://cursor.com/help/troubleshooting/network" target="_blank" rel="noreferrer"><strong>Cursor 网络排障</strong><span>Cursor 网络、代理和远程连接相关说明。</span></a>
+              <a class="source-card" href="https://forum.cursor.com/t/bug-ai-features-completely-broken-econnreset-stuck-on-local-proxy-127-0-0-1-port-10809/152454" target="_blank" rel="noreferrer"><strong>Cursor 代理残留案例</strong><span>本地代理端口残留导致 ECONNRESET 的真实案例。</span></a>
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="wrap">
+        <span class="footer-brand"><img src="assets/brand/logo-symbol-primary-on-dark.svg" width="22" height="22" alt="TranFu">Ageng网络医生</span>
+        <span><a href="index.html">返回首页</a></span>
+      </div>
+    </footer>
+    <script src="site.js"></script>
+  </body>
+</html>

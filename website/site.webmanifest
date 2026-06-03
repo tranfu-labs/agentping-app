@@ -1,0 +1,23 @@
+{
+  "name": "Ageng网络医生",
+  "short_name": "Ageng网络医生",
+  "description": "Codex、Claude Code、Cursor 卡住时的网络状态监控与诊断工具。",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#fafafa",
+  "theme_color": "#E63138",
+  "icons": [
+    {
+      "src": "assets/brand/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/brand/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

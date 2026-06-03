@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="author" content="TranFu">
+    <meta name="robots" content="index, follow">
+    <title>Ageng网络医生 - Agent 卡住时先看网络哪里坏了</title>
+    <meta name="description" content="Codex、Claude Code、Cursor 没反应时，Ageng网络医生帮你判断是 API 链路、代理规则、出口节点，还是工具本身卡住。">
+    <link rel="canonical" href="https://agentping-app.tranfu.com/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Ageng网络医生 by TranFu">
+    <meta property="og:locale" content="zh_CN">
+    <meta property="og:url" content="https://agentping-app.tranfu.com/">
+    <meta property="og:title" content="Ageng网络医生 - Agent 卡住时先看网络哪里坏了">
+    <meta property="og:description" content="Codex、Claude Code、Cursor 没反应时，Ageng网络医生帮你判断是 API 链路、代理规则、出口节点，还是工具本身卡住。">
+    <meta property="og:image" content="https://tranfu.com/brand/logo/social/og-image-1200x630.png">
+    <meta property="og:image:secure_url" content="https://tranfu.com/brand/logo/social/og-image-1200x630.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="TranFu Ageng网络医生 网络监控工具">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Ageng网络医生 - Agent 卡住时先看网络哪里坏了">
+    <meta name="twitter:description" content="Codex、Claude Code、Cursor 没反应时，Ageng网络医生帮你判断是 API 链路、代理规则、出口节点，还是工具本身卡住。">
+    <meta name="twitter:image" content="https://tranfu.com/brand/logo/social/og-image-1200x630.png">
+    <link rel="image_src" href="https://tranfu.com/brand/logo/social/og-image-1200x630.png">
+    <link rel="shortcut icon" href="assets/brand/favicon.ico">
+    <link rel="icon" type="image/svg+xml" href="assets/brand/logo-badge-rounded-rect-on-light.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/brand/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/brand/apple-touch-icon-180.png">
+    <link rel="apple-touch-icon-precomposed" sizes="180x180" href="assets/brand/apple-touch-icon-180.png">
+    <link rel="manifest" href="site.webmanifest">
+    <meta name="theme-color" content="#E63138">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="styles.css">
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://tranfu.com#organization","name":"TranFu","url":"https://tranfu.com","logo":"https://tranfu.com/brand/logo/png/apple-touch-icon-180.png","description":"让 AI Agent 干活，你只做决策"}</script>
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav">
+        <a class="brand" href="index.html"><img class="brand-logo" src="assets/brand/logo-symbol-primary-on-light.svg" width="28" height="28" alt="TranFu"><span>Ageng网络医生</span></a>
+        <div class="nav-links">
+          <a class="active" href="index.html">首页</a>
+          <a href="tool.html">工具说明</a>
+          <a href="vpn.html">团队网络</a>
+          <a href="articles.html">常见文章</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-layout">
+          <div class="hero-content">
+            <p class="eyebrow">Agent 卡住时的网络自检工具</p>
+            <h1>看清网络，<span class="text-highlight">再继续跑 Agent。</span></h1>
+            <p class="hero-copy">Codex、Claude Code、Cursor 没输出时，先别急着重启。Ageng网络医生帮你判断是 API 访问失败、本地代理没接管，还是当前节点不稳定。</p>
+            <div class="actions">
+              <a class="button primary" href="tool.html"><svg class="button-icon" aria-hidden="true"><use href="assets/visuals.svg#icon-download"></use></svg>下载监控工具</a>
+              <a class="button secondary" href="articles.html"><svg class="button-icon" aria-hidden="true"><use href="assets/visuals.svg#icon-book"></use></svg>查看常见问题</a>
+            </div>
+            <div class="trust-row" aria-label="Ageng网络医生 关键能力">
+              <span><svg class="inline-icon" aria-hidden="true"><use href="assets/visuals.svg#icon-radar"></use></svg>红黄绿判断</span>
+              <span><svg class="inline-icon" aria-hidden="true"><use href="assets/visuals.svg#icon-globe"></use></svg>出口地区</span>
+              <span><svg class="inline-icon" aria-hidden="true"><use href="assets/visuals.svg#icon-shield"></use></svg>不读取 API Key</span>
+            </div>
+          </div>
+          <div class="hero-product" aria-label="Ageng网络医生 状态面板示例">
+            <div class="panel-header">
+              <span class="panel-title"><svg class="inline-icon" aria-hidden="true"><use href="assets/visuals.svg#icon-radar"></use></svg>现在还能不能跑 Agent？</span>
+              <span class="panel-time">刚刚检查</span>
+            </div>
+            <div class="status-visual" aria-hidden="true">
+              <div class="visual-node source"><svg><use href="assets/visuals.svg#icon-terminal"></use></svg><span>Mac</span></div>
+              <div class="visual-path"><span></span><span></span></div>
+              <div class="visual-node cloud"><svg><use href="assets/visuals.svg#icon-cloud"></use></svg><span>API</span></div>
+              <div class="visual-node exit"><svg><use href="assets/visuals.svg#icon-globe"></use></svg><span>Tokyo</span></div>
+            </div>
+            <div class="status-summary">
+              <div class="status-card"><strong>绿</strong><span>Codex 可以继续</span></div>
+              <div class="status-card"><strong>红</strong><span>Claude 先暂停</span></div>
+              <div class="status-card"><strong>186ms</strong><span>最长链路耗时</span></div>
+            </div>
+            <table class="status-table">
+              <thead>
+                <tr><th>你在用</th><th>结果</th><th>可能原因</th><th>下一步</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Codex</td><td><span class="pill green">可继续</span></td><td>OpenAI 链路正常</td><td>继续当前任务</td></tr>
+                <tr><td>Claude Code</td><td><span class="pill red">先暂停</span></td><td>Anthropic 出口异常</td><td>换节点后再试</td></tr>
+                <tr><td>本地代理</td><td><span class="pill yellow">要确认</span></td><td>终端代理未命中</td><td>检查分流规则</td></tr>
+              </tbody>
+            </table>
+            <div class="product-note">结论：不要先重启 Agent。先换 Claude 可用节点，避免把任务上下文跑丢。</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section soft">
+        <div class="wrap">
+          <div class="section-head">
+            <h2>用户真正想知道：现在该不该继续跑？</h2>
+            <p>代理客户端显示在线，不代表 Agent 到 API 的链路可用。Ageng网络医生先告诉你能不能继续，再告诉你下一步该换节点、查代理，还是等服务恢复。</p>
+          </div>
+          <div class="metric-band">
+            <div class="metric"><strong>10 秒</strong><span>知道能不能继续</span></div>
+            <div class="metric"><strong>3 步</strong><span>继续、换节点、查代理</span></div>
+            <div class="metric"><strong>2 条</strong><span>Codex 和 Claude 链路</span></div>
+            <div class="metric"><strong>0 Key</strong><span>不需要输入 API Key</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="wrap product-strip">
+          <div>
+            <div class="section-head">
+              <h2>什么时候该打开它？</h2>
+              <p>只要你准备跑长任务，或者 Agent 已经停住没输出，就先看一次 Ageng网络医生。它的目标不是展示复杂数据，而是减少误判和反复重启。</p>
+            </div>
+            <div class="grid two">
+              <div class="card"><h3>开始长任务前</h3><p>先确认 OpenAI 和 Anthropic 都是绿色，再把复杂任务交给 Agent。</p></div>
+              <div class="card"><h3>Agent 没输出时</h3><p>先判断是网络卡住还是工具卡住，不要第一时间重启。</p></div>
+              <div class="card"><h3>节点不稳定时</h3><p>看哪条链路异常，再决定换 Claude 节点还是 OpenAI 节点。</p></div>
+              <div class="card"><h3>团队协作时</h3><p>把排查口径统一下来，少靠群里临时猜测。</p></div>
+            </div>
+          </div>
+          <div class="console" aria-label="Ageng网络医生 诊断示例">
+            <div class="console-bar"><span></span><span></span><span></span></div>
+            <div class="console-body">
+              <div class="console-line"><span>agentping check</span><strong>正在检查</strong></div>
+              <div class="console-line"><span>Codex / OpenAI</span><strong><span class="status-dot"></span>186ms</strong></div>
+              <div class="console-line"><span>Claude / Anthropic</span><strong><span class="status-dot red"></span>不可用</strong></div>
+              <div class="console-line"><span>判断</span><strong>当前节点不适合 Claude</strong></div>
+              <div class="console-line"><span>下一步</span><strong>换节点后再运行</strong></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section deep">
+        <div class="wrap">
+          <div class="section-head">
+            <h2>你现在可能要做的 3 件事。</h2>
+            <p>下载工具先看当前链路；团队成员查看可用节点；遇到具体问题时按现象读排查文章。</p>
+          </div>
+          <div class="grid three">
+            <div class="card"><h3>先装工具</h3><p>把 Ageng网络医生挂到菜单栏，卡住时先看红黄绿。</p><a class="button light" href="tool.html"><svg class="button-icon" aria-hidden="true"><use href="assets/visuals.svg#icon-download"></use></svg>进入工具页</a></div>
+            <div class="card"><h3>找稳定节点</h3><p>团队验证后查看订阅、VPS 和 Clash 客户端渠道。</p><a class="button light" href="vpn.html"><svg class="button-icon" aria-hidden="true"><use href="assets/visuals.svg#icon-lock"></use></svg>进入团队网络</a></div>
+            <div class="card"><h3>按现象排查</h3><p>Claude 不动、OpenAI 正常、节点在线但 Agent 卡住，都有对应说明。</p><a class="button light" href="articles.html"><svg class="button-icon" aria-hidden="true"><use href="assets/visuals.svg#icon-book"></use></svg>进入文章页</a></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="wrap">
+        <span class="footer-brand"><img src="assets/brand/logo-symbol-primary-on-dark.svg" width="22" height="22" alt="TranFu">Ageng网络医生</span>
+        <span>先看链路，再决定下一步。</span>
+      </div>
+    </footer>
+    <script src="site.js"></script>
+  </body>
+</html>

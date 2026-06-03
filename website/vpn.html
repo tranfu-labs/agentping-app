@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="author" content="TranFu">
+    <meta name="robots" content="index, follow">
+    <title>团队网络 - Ageng网络医生</title>
+    <meta name="description" content="团队内部稳定节点、VPN 订阅、Clash 客户端下载渠道和 AI Agent 使用建议。">
+    <link rel="canonical" href="https://agentping-app.tranfu.com/vpn.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Ageng网络医生 by TranFu">
+    <meta property="og:locale" content="zh_CN">
+    <meta property="og:url" content="https://agentping-app.tranfu.com/vpn.html">
+    <meta property="og:title" content="团队网络 - Ageng网络医生">
+    <meta property="og:description" content="团队内部稳定节点、VPN 订阅、Clash 客户端下载渠道和 AI Agent 使用建议。">
+    <meta property="og:image" content="https://tranfu.com/brand/logo/social/og-image-1200x630.png">
+    <meta property="og:image:secure_url" content="https://tranfu.com/brand/logo/social/og-image-1200x630.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="TranFu Ageng网络医生 网络监控工具">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="团队网络 - Ageng网络医生">
+    <meta name="twitter:description" content="团队内部稳定节点、VPN 订阅、Clash 客户端下载渠道和 AI Agent 使用建议。">
+    <meta name="twitter:image" content="https://tranfu.com/brand/logo/social/og-image-1200x630.png">
+    <link rel="image_src" href="https://tranfu.com/brand/logo/social/og-image-1200x630.png">
+    <link rel="shortcut icon" href="assets/brand/favicon.ico">
+    <link rel="icon" type="image/svg+xml" href="assets/brand/logo-badge-rounded-rect-on-light.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/brand/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/brand/apple-touch-icon-180.png">
+    <link rel="apple-touch-icon-precomposed" sizes="180x180" href="assets/brand/apple-touch-icon-180.png">
+    <link rel="manifest" href="site.webmanifest">
+    <meta name="theme-color" content="#E63138">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="styles.css">
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://tranfu.com#organization","name":"TranFu","url":"https://tranfu.com","logo":"https://tranfu.com/brand/logo/png/apple-touch-icon-180.png","description":"让 AI Agent 干活，你只做决策"}</script>
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav">
+        <a class="brand" href="index.html"><img class="brand-logo" src="assets/brand/logo-symbol-primary-on-light.svg" width="28" height="28" alt="TranFu"><span>Ageng网络医生</span></a>
+        <div class="nav-links">
+          <a href="index.html">首页</a>
+          <a href="tool.html">工具说明</a>
+          <a class="active" href="vpn.html">团队网络</a>
+          <a href="articles.html">常见文章</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="page-hero">
+        <div class="wrap page-hero-grid">
+          <div class="page-title">
+            <p class="eyebrow">团队网络</p>
+            <h1>团队网络信息需要验证后查看。</h1>
+            <p>这里放团队验证过的订阅、VPS 节点、Clash 客户端渠道和 Agent 使用建议，避免每次卡住都临时问“哪个节点能用”。</p>
+          </div>
+          <div class="page-visual vpn-visual" aria-label="团队网络访问示意">
+            <div class="lock-card">
+              <svg aria-hidden="true"><use href="assets/visuals.svg#icon-lock"></use></svg>
+              <strong>团队访问码</strong>
+              <span>验证后查看节点</span>
+            </div>
+            <div class="node-strip">
+              <span><svg class="inline-icon" aria-hidden="true"><use href="assets/visuals.svg#icon-globe"></use></svg>Tokyo Agent 01</span>
+              <span><svg class="inline-icon" aria-hidden="true"><use href="assets/visuals.svg#icon-route"></use></svg>US West Agent 02</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" data-locked-content>
+        <div class="wrap">
+          <div class="access-panel">
+            <h2>输入团队访问码</h2>
+            <p>请找团队管理员获取访问码。当前原型演示码为 agentping-team，正式上线后应改为团队登录。</p>
+            <form class="form-row" data-access-form>
+              <input type="password" placeholder="输入访问码" aria-label="访问码">
+              <button class="button dark" type="submit">验证访问</button>
+            </form>
+            <p class="note" data-access-error>验证通过后才能查看 VPN 订阅、节点和使用说明。</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section hidden" data-protected-content>
+        <div class="wrap">
+          <div class="section-head">
+            <h2>可用网络从这里统一维护。</h2>
+            <p>真实订阅链接、节点地址和账号信息不要公开展示。这里先把结构放好，后续由团队维护人补充。</p>
+          </div>
+
+          <div class="grid three">
+            <div class="card">
+              <h3>成员自购订阅</h3>
+              <p>适合临时备用，或者给轻量任务使用。</p>
+              <p><strong>状态：</strong>待团队验证后填写</p>
+            </div>
+            <div class="card">
+              <h3>团队 VPS</h3>
+              <p>适合 Claude Code、Codex 这类长任务优先使用。</p>
+              <p><strong>状态：</strong>待维护人补充节点说明</p>
+            </div>
+            <div class="card">
+              <h3>怎么选节点</h3>
+              <p>优先选低丢包、低抖动、共享人数少的出口跑长任务。</p>
+              <p><strong>状态：</strong>结合 Ageng网络医生历史记录持续更新</p>
+            </div>
+          </div>
+
+          <div class="section-head section-spaced">
+            <h2>订阅和节点按用途维护。</h2>
+            <p>不要只放裸链接。每条网络信息都要说明适用场景、推荐 Agent、稳定性和维护人。</p>
+          </div>
+          <div class="resource-grid">
+            <div class="resource-card">
+              <div class="resource-top"><h3>团队备用订阅 A</h3><span class="pill yellow">待验证</span></div>
+              <p>适用：日常浏览、轻量 Codex 任务、临时备用。</p>
+              <dl>
+                <div><dt>推荐</dt><dd>Codex / Cursor</dd></div>
+                <div><dt>稳定性</dt><dd>中，待 Ageng网络医生记录补充</dd></div>
+                <div><dt>链接</dt><dd>验证后由维护人填写</dd></div>
+              </dl>
+            </div>
+            <div class="resource-card">
+              <div class="resource-top"><h3>Tokyo Agent 01</h3><span class="pill green">优先</span></div>
+              <p>适用：Claude Code 长任务，尽量保持任务期间不切节点。</p>
+              <dl>
+                <div><dt>推荐</dt><dd>Claude Code</dd></div>
+                <div><dt>稳定性</dt><dd>高，适合长任务</dd></div>
+                <div><dt>注意</dt><dd>不要用于大流量下载</dd></div>
+              </dl>
+            </div>
+            <div class="resource-card">
+              <div class="resource-top"><h3>US West Agent 02</h3><span class="pill green">备用</span></div>
+              <p>适用：OpenAI / Cursor 任务，Claude 异常时不一定可替代。</p>
+              <dl>
+                <div><dt>推荐</dt><dd>Codex / Cursor</dd></div>
+                <div><dt>稳定性</dt><dd>高，待持续观察</dd></div>
+                <div><dt>维护人</dt><dd>待团队填写</dd></div>
+              </dl>
+            </div>
+          </div>
+
+          <div class="section-head section-spaced">
+            <h2>先装可信客户端。</h2>
+            <p>Clash 客户端建议从项目 GitHub Releases 获取，不建议使用来源不明的二次打包站。</p>
+          </div>
+          <table class="table">
+            <thead>
+              <tr><th>软件</th><th>适用场景</th><th>下载渠道</th><th>备注</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Clash Verge Rev</td>
+                <td>Windows / macOS / Linux 图形客户端</td>
+                <td><a href="https://github.com/clash-verge-rev/clash-verge-rev/releases" target="_blank" rel="noreferrer">GitHub Releases</a></td>
+                <td>新成员优先从这里开始。</td>
+              </tr>
+              <tr>
+                <td>mihomo</td>
+                <td>底层核心和高级配置</td>
+                <td><a href="https://github.com/MetaCubeX/mihomo/releases" target="_blank" rel="noreferrer">GitHub Releases</a></td>
+                <td>适合维护团队配置的人。</td>
+              </tr>
+              <tr>
+                <td>Clash for Windows</td>
+                <td>历史用户迁移参考</td>
+                <td><a href="https://github.com/clash-download/clash-for-windows/releases" target="_blank" rel="noreferrer">历史归档</a></td>
+                <td>只给历史用户迁移参考。</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="section-head section-spaced">
+            <h2>新成员按这 4 步接入。</h2>
+            <p>不要一上来改复杂配置。先让 Ageng网络医生变绿，再开始跑长任务。</p>
+          </div>
+          <div class="steps">
+            <div class="step-card"><span>1</span><h3>安装客户端</h3><p>优先安装 Clash Verge Rev，确认客户端能正常启动。</p></div>
+            <div class="step-card"><span>2</span><h3>导入订阅</h3><p>使用团队维护人提供的订阅，不从群聊历史里复制旧链接。</p></div>
+            <div class="step-card"><span>3</span><h3>选择节点</h3><p>长任务优先选团队 VPS，轻任务可以使用备用订阅。</p></div>
+            <div class="step-card"><span>4</span><h3>运行自检</h3><p>打开 Ageng网络医生，OpenAI 和 Anthropic 都是绿色后再开工。</p></div>
+          </div>
+
+          <div class="section-head section-spaced">
+            <h2>团队成员怎么用。</h2>
+            <p>这里不讲所有代理知识，只讲如何更稳定地跑 Codex、Claude Code 和 Cursor。</p>
+          </div>
+          <div class="grid two">
+            <div class="card">
+              <h3>开始任务前</h3>
+              <ul>
+                <li>先看 Ageng网络医生，确认 OpenAI 和 Anthropic 是否为绿色。</li>
+                <li>长任务优先使用团队验证过的稳定出口。</li>
+                <li>任务跑起来后，不要频繁切换节点。</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h3>卡住以后</h3>
+              <ul>
+                <li>先看 Ageng网络医生判断，不要第一时间重启软件。</li>
+                <li>只有 Anthropic 红时，优先换 Claude 可用节点。</li>
+                <li>全部红时，先检查本地代理是否生效。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="wrap">
+        <span class="footer-brand"><img src="assets/brand/logo-symbol-primary-on-dark.svg" width="22" height="22" alt="TranFu">Ageng网络医生</span>
+        <span><a href="index.html">返回首页</a></span>
+      </div>
+    </footer>
+    <script src="site.js"></script>
+  </body>
+</html>
