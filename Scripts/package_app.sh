@@ -2,7 +2,7 @@
 set -eu
 
 ROOT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
-APP_VERSION="${AGENTPING_APP_VERSION:-0.1.4}"
+APP_VERSION="${AGENTPING_APP_VERSION:-0.1.5}"
 APP_DIR="$ROOT_DIR/dist/AgentPing.app"
 CONTENTS_DIR="$APP_DIR/Contents"
 MACOS_DIR="$CONTENTS_DIR/MacOS"

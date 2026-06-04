@@ -328,16 +328,16 @@ final class AgentPingMenuApp: NSObject, NSApplicationDelegate {
     }
 
     private func summaryItem(title: String, detail: String, status: String) -> NSMenuItem {
-        let height: CGFloat = 104
+        let height: CGFloat = 108
         let view = Self.baseView(height: height)
-        let dot = Self.dotView(status: status, frame: NSRect(x: 16, y: height - 31, width: 11, height: 11))
+        let dot = Self.dotView(status: status, frame: NSRect(x: 16, y: height - 31, width: 10, height: 10))
         view.addSubview(dot)
-        view.addSubview(Self.label(title, frame: NSRect(x: 35, y: height - 38, width: 260, height: 24), size: 15, weight: .semibold, color: .labelColor))
+        view.addSubview(Self.label(title, frame: NSRect(x: 34, y: height - 38, width: 250, height: 24), size: 16, weight: .semibold, color: .labelColor))
 
         let statusText = Self.statusLabel(status)
-        view.addSubview(Self.label(statusText, frame: NSRect(x: 290, y: height - 37, width: 55, height: 22), size: 12, weight: .semibold, color: Self.statusColor(status), alignment: .right))
+        view.addSubview(Self.label(statusText, frame: NSRect(x: 302, y: height - 37, width: 50, height: 22), size: 13, weight: .semibold, color: Self.statusColor(status), alignment: .right))
 
-        view.addSubview(Self.label(detail, frame: NSRect(x: 16, y: 37, width: 330, height: 34), size: 12, weight: .regular, color: .secondaryLabelColor, lines: 2))
+        view.addSubview(Self.label(detail, frame: NSRect(x: 16, y: 44, width: 336, height: 34), size: 12.5, weight: .regular, color: .secondaryLabelColor, lines: 2))
 
         let footerText: String
         if let lastUpdated {
@@ -347,9 +347,9 @@ final class AgentPingMenuApp: NSObject, NSApplicationDelegate {
         } else {
             footerText = "等待首次检查"
         }
-        view.addSubview(Self.badgeLabel(footerText, frame: NSRect(x: 16, y: 12, width: 118, height: 22)))
+        view.addSubview(Self.badgeLabel(footerText, frame: NSRect(x: 16, y: 13, width: 120, height: 24)))
         if let egress = lastPayload?.egress?.label {
-            view.addSubview(Self.badgeLabel("出口 \(egress)", frame: NSRect(x: 142, y: 12, width: 156, height: 22)))
+            view.addSubview(Self.badgeLabel("出口 \(egress)", frame: NSRect(x: 150, y: 13, width: 158, height: 24)))
         }
 
         return Self.customItem(view)
@@ -469,10 +469,10 @@ final class AgentPingMenuApp: NSObject, NSApplicationDelegate {
     }
 
     private static func badgeLabel(_ text: String, frame: NSRect) -> NSTextField {
-        let label = label(text, frame: frame, size: 11.5, weight: .medium, color: .secondaryLabelColor, alignment: .center)
+        let label = label(text, frame: frame, size: 12, weight: .medium, color: .secondaryLabelColor, alignment: .center)
         label.wantsLayer = true
-        label.layer?.cornerRadius = 5
-        label.layer?.backgroundColor = NSColor.controlBackgroundColor.withAlphaComponent(0.72).cgColor
+        label.layer?.cornerRadius = 7
+        label.layer?.backgroundColor = NSColor.controlBackgroundColor.withAlphaComponent(0.58).cgColor
         return label
     }
 
@@ -498,9 +498,9 @@ final class AgentPingMenuApp: NSObject, NSApplicationDelegate {
     }
 
     private static func sectionItem(_ title: String) -> NSMenuItem {
-        let height: CGFloat = 28
+        let height: CGFloat = 34
         let view = baseView(height: height)
-        view.addSubview(label(title, frame: NSRect(x: 16, y: 5, width: 220, height: 17), size: 12, weight: .semibold, color: .secondaryLabelColor))
+        view.addSubview(label(title, frame: NSRect(x: 16, y: 9, width: 220, height: 18), size: 13, weight: .semibold, color: .secondaryLabelColor))
         return customItem(view)
     }
 
@@ -514,29 +514,32 @@ final class AgentPingMenuApp: NSObject, NSApplicationDelegate {
     }
 
     private static func rowItem(title: String, value: String, detail: String?, status: String) -> NSMenuItem {
-        let height: CGFloat = detail?.isEmpty == false ? 50 : 38
+        let hasDetail = detail?.isEmpty == false
+        let height: CGFloat = hasDetail ? 62 : 42
         let view = baseView(height: height)
-        view.addSubview(dotView(status: status, frame: NSRect(x: 16, y: height - 25, width: 10, height: 10)))
-        view.addSubview(label(title, frame: NSRect(x: 34, y: height - 31, width: 128, height: 19), size: 13, weight: .medium, color: .labelColor))
-        view.addSubview(label(value, frame: NSRect(x: 166, y: height - 31, width: 188, height: 19), size: 13, weight: .semibold, color: statusColor(status), alignment: .right))
+        view.addSubview(dotView(status: status, frame: NSRect(x: 16, y: height - 27, width: 9, height: 9)))
+        view.addSubview(label(title, frame: NSRect(x: 34, y: height - 34, width: 138, height: 21), size: 14, weight: .semibold, color: .labelColor))
+        view.addSubview(label(value, frame: NSRect(x: 176, y: height - 34, width: 178, height: 21), size: 13.5, weight: .semibold, color: statusColor(status), alignment: .right))
         if let detail, !detail.isEmpty {
-            view.addSubview(label(detail, frame: NSRect(x: 34, y: 8, width: 320, height: 16), size: 11.5, weight: .regular, color: .secondaryLabelColor))
+            view.addSubview(label(detail, frame: NSRect(x: 34, y: 15, width: 320, height: 18), size: 12.5, weight: .regular, color: .secondaryLabelColor))
         }
+        addHairline(to: view, y: 0.5, left: 34, right: 16, alpha: 0.32)
         return customItem(view)
     }
 
     private static func infoGroupItem(rows: [(String, String, String)]) -> NSMenuItem {
-        let rowHeight: CGFloat = 25
-        let height = CGFloat(rows.count) * rowHeight + 12
+        let rowHeight: CGFloat = 31
+        let height = CGFloat(rows.count) * rowHeight + 8
         let view = baseView(height: height)
-        view.wantsLayer = true
-        view.layer?.cornerRadius = 8
-        view.layer?.backgroundColor = NSColor.controlBackgroundColor.withAlphaComponent(0.34).cgColor
         for (index, row) in rows.enumerated() {
-            let y = height - 10 - CGFloat(index + 1) * rowHeight
-            view.addSubview(label(row.0, frame: NSRect(x: 16, y: y, width: 82, height: 18), size: 12, weight: .regular, color: .secondaryLabelColor))
-            view.addSubview(label(row.1, frame: NSRect(x: 102, y: y, width: 248, height: 18), size: 12, weight: .medium, color: statusColor(row.2), alignment: .right))
+            let y = height - 4 - CGFloat(index + 1) * rowHeight
+            view.addSubview(label(row.0, frame: NSRect(x: 16, y: y + 6, width: 82, height: 18), size: 12.5, weight: .regular, color: .secondaryLabelColor))
+            view.addSubview(label(row.1, frame: NSRect(x: 106, y: y + 6, width: 248, height: 18), size: 12.5, weight: .medium, color: statusColor(row.2), alignment: .right))
+            if index < rows.count - 1 {
+                addHairline(to: view, y: y, left: 16, right: 16, alpha: 0.22)
+            }
         }
+        addHairline(to: view, y: 0.5, left: 16, right: 16, alpha: 0.36)
         return customItem(view)
     }
 
@@ -558,6 +561,13 @@ final class AgentPingMenuApp: NSObject, NSApplicationDelegate {
         button.controlSize = .small
         button.font = NSFont.systemFont(ofSize: 12, weight: .medium)
         return button
+    }
+
+    private static func addHairline(to view: NSView, y: CGFloat, left: CGFloat, right: CGFloat, alpha: CGFloat) {
+        let line = NSView(frame: NSRect(x: left, y: y, width: menuWidth - left - right, height: 1))
+        line.wantsLayer = true
+        line.layer?.backgroundColor = NSColor.separatorColor.withAlphaComponent(alpha).cgColor
+        view.addSubview(line)
     }
 
     @objc private func refreshFromMenu() {
