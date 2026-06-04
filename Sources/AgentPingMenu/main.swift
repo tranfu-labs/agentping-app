@@ -219,6 +219,7 @@ final class AgentPingMenuApp: NSObject, NSApplicationDelegate {
 
         if let payload = lastPayload {
             if let agents = payload.agents {
+                menu.addItem(Self.separatorItem())
                 menu.addItem(Self.sectionItem("常用软件"))
                 for agent in agents {
                     menu.addItem(Self.rowItem(
@@ -230,6 +231,7 @@ final class AgentPingMenuApp: NSObject, NSApplicationDelegate {
                 }
             }
 
+            menu.addItem(Self.separatorItem())
             menu.addItem(Self.sectionItem("链路明细"))
             for result in payload.results {
                 let ms = result.totalMs.map { "\(Int($0.rounded()))ms" } ?? "-"
@@ -255,11 +257,13 @@ final class AgentPingMenuApp: NSObject, NSApplicationDelegate {
                 formatter.dateFormat = "HH:mm:ss"
                 environmentRows.append(("更新时间", formatter.string(from: lastUpdated), "gray"))
             }
+            menu.addItem(Self.separatorItem())
             menu.addItem(Self.sectionItem("网络环境"))
             menu.addItem(Self.infoGroupItem(rows: environmentRows))
 
             let history = loadHistory()
             if !history.isEmpty {
+                menu.addItem(Self.separatorItem())
                 menu.addItem(Self.sectionItem("最近异常"))
                 let formatter = DateFormatter()
                 formatter.dateFormat = "HH:mm"
@@ -332,12 +336,12 @@ final class AgentPingMenuApp: NSObject, NSApplicationDelegate {
         let view = Self.baseView(height: height)
         let dot = Self.dotView(status: status, frame: NSRect(x: 16, y: height - 31, width: 10, height: 10))
         view.addSubview(dot)
-        view.addSubview(Self.label(title, frame: NSRect(x: 34, y: height - 38, width: 250, height: 24), size: 16, weight: .semibold, color: .labelColor))
+        view.addSubview(Self.label(title, frame: NSRect(x: 34, y: height - 35, width: 250, height: 20), size: 13, weight: .semibold, color: .labelColor))
 
         let statusText = Self.statusLabel(status)
-        view.addSubview(Self.label(statusText, frame: NSRect(x: 302, y: height - 37, width: 50, height: 22), size: 13, weight: .semibold, color: Self.statusColor(status), alignment: .right))
+        view.addSubview(Self.label(statusText, frame: NSRect(x: 302, y: height - 35, width: 50, height: 20), size: 13, weight: .semibold, color: Self.statusColor(status), alignment: .right))
 
-        view.addSubview(Self.label(detail, frame: NSRect(x: 16, y: 44, width: 336, height: 34), size: 12.5, weight: .regular, color: .secondaryLabelColor, lines: 2))
+        view.addSubview(Self.label(detail, frame: NSRect(x: 16, y: 45, width: 336, height: 32), size: 11, weight: .regular, color: .secondaryLabelColor, lines: 2))
 
         let footerText: String
         if let lastUpdated {
@@ -347,9 +351,9 @@ final class AgentPingMenuApp: NSObject, NSApplicationDelegate {
         } else {
             footerText = "等待首次检查"
         }
-        view.addSubview(Self.badgeLabel(footerText, frame: NSRect(x: 16, y: 13, width: 120, height: 24)))
+        view.addSubview(Self.badgeLabel(footerText, frame: NSRect(x: 16, y: 13, width: 120, height: 23)))
         if let egress = lastPayload?.egress?.label {
-            view.addSubview(Self.badgeLabel("出口 \(egress)", frame: NSRect(x: 150, y: 13, width: 158, height: 24)))
+            view.addSubview(Self.badgeLabel("出口 \(egress)", frame: NSRect(x: 150, y: 13, width: 158, height: 23)))
         }
 
         return Self.customItem(view)
@@ -469,7 +473,7 @@ final class AgentPingMenuApp: NSObject, NSApplicationDelegate {
     }
 
     private static func badgeLabel(_ text: String, frame: NSRect) -> NSTextField {
-        let label = label(text, frame: frame, size: 12, weight: .medium, color: .secondaryLabelColor, alignment: .center)
+        let label = label(text, frame: frame, size: 11, weight: .medium, color: .secondaryLabelColor, alignment: .center)
         label.wantsLayer = true
         label.layer?.cornerRadius = 7
         label.layer?.backgroundColor = NSColor.controlBackgroundColor.withAlphaComponent(0.58).cgColor
@@ -500,7 +504,7 @@ final class AgentPingMenuApp: NSObject, NSApplicationDelegate {
     private static func sectionItem(_ title: String) -> NSMenuItem {
         let height: CGFloat = 34
         let view = baseView(height: height)
-        view.addSubview(label(title, frame: NSRect(x: 16, y: 9, width: 220, height: 18), size: 13, weight: .semibold, color: .secondaryLabelColor))
+        view.addSubview(label(title, frame: NSRect(x: 16, y: 9, width: 220, height: 18), size: 11, weight: .semibold, color: .secondaryLabelColor))
         return customItem(view)
     }
 
@@ -515,31 +519,26 @@ final class AgentPingMenuApp: NSObject, NSApplicationDelegate {
 
     private static func rowItem(title: String, value: String, detail: String?, status: String) -> NSMenuItem {
         let hasDetail = detail?.isEmpty == false
-        let height: CGFloat = hasDetail ? 62 : 42
+        let height: CGFloat = hasDetail ? 54 : 36
         let view = baseView(height: height)
-        view.addSubview(dotView(status: status, frame: NSRect(x: 16, y: height - 27, width: 9, height: 9)))
-        view.addSubview(label(title, frame: NSRect(x: 34, y: height - 34, width: 138, height: 21), size: 14, weight: .semibold, color: .labelColor))
-        view.addSubview(label(value, frame: NSRect(x: 176, y: height - 34, width: 178, height: 21), size: 13.5, weight: .semibold, color: statusColor(status), alignment: .right))
+        view.addSubview(dotView(status: status, frame: NSRect(x: 16, y: height - 24, width: 8, height: 8)))
+        view.addSubview(label(title, frame: NSRect(x: 34, y: height - 29, width: 138, height: 18), size: 13, weight: .semibold, color: .labelColor))
+        view.addSubview(label(value, frame: NSRect(x: 176, y: height - 29, width: 178, height: 18), size: 13, weight: .semibold, color: statusColor(status), alignment: .right))
         if let detail, !detail.isEmpty {
-            view.addSubview(label(detail, frame: NSRect(x: 34, y: 15, width: 320, height: 18), size: 12.5, weight: .regular, color: .secondaryLabelColor))
+            view.addSubview(label(detail, frame: NSRect(x: 34, y: 10, width: 320, height: 16), size: 11, weight: .regular, color: .secondaryLabelColor))
         }
-        addHairline(to: view, y: 0.5, left: 34, right: 16, alpha: 0.32)
         return customItem(view)
     }
 
     private static func infoGroupItem(rows: [(String, String, String)]) -> NSMenuItem {
-        let rowHeight: CGFloat = 31
+        let rowHeight: CGFloat = 27
         let height = CGFloat(rows.count) * rowHeight + 8
         let view = baseView(height: height)
         for (index, row) in rows.enumerated() {
             let y = height - 4 - CGFloat(index + 1) * rowHeight
-            view.addSubview(label(row.0, frame: NSRect(x: 16, y: y + 6, width: 82, height: 18), size: 12.5, weight: .regular, color: .secondaryLabelColor))
-            view.addSubview(label(row.1, frame: NSRect(x: 106, y: y + 6, width: 248, height: 18), size: 12.5, weight: .medium, color: statusColor(row.2), alignment: .right))
-            if index < rows.count - 1 {
-                addHairline(to: view, y: y, left: 16, right: 16, alpha: 0.22)
-            }
+            view.addSubview(label(row.0, frame: NSRect(x: 16, y: y + 6, width: 82, height: 17), size: 11, weight: .regular, color: .secondaryLabelColor))
+            view.addSubview(label(row.1, frame: NSRect(x: 106, y: y + 6, width: 248, height: 17), size: 11, weight: .medium, color: statusColor(row.2), alignment: .right))
         }
-        addHairline(to: view, y: 0.5, left: 16, right: 16, alpha: 0.36)
         return customItem(view)
     }
 
@@ -559,7 +558,7 @@ final class AgentPingMenuApp: NSObject, NSApplicationDelegate {
         button.frame = frame
         button.bezelStyle = .rounded
         button.controlSize = .small
-        button.font = NSFont.systemFont(ofSize: 12, weight: .medium)
+        button.font = NSFont.systemFont(ofSize: 13, weight: .medium)
         return button
     }
 
