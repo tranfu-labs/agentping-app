@@ -67,6 +67,7 @@ final class AgentPingMenuApp: NSObject, NSApplicationDelegate {
     private var timer: Timer?
     private var lastPayload: AgentPingPayload?
     private var lastUpdated: Date?
+    private static let menuWidth: CGFloat = 372
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         NSApp.setActivationPolicy(.accessory)
@@ -87,9 +88,11 @@ final class AgentPingMenuApp: NSObject, NSApplicationDelegate {
         }
     }
 
-    private func refresh() {
+    private func refresh(keepMenuOpen: Bool = false) {
         statusItem.button?.attributedTitle = Self.statusBarTitle(status: "gray", text: "检查中")
-        rebuildMenu(isChecking: true)
+        if !keepMenuOpen {
+            rebuildMenu(isChecking: true)
+        }
 
         let scriptPath = Self.agentPingScriptPath()
         DispatchQueue.global(qos: .utility).async { [weak self, scriptPath] in
@@ -202,79 +205,68 @@ final class AgentPingMenuApp: NSObject, NSApplicationDelegate {
     private func rebuildMenu(isChecking: Bool) {
         menu.removeAllItems()
         if isChecking {
-            menu.addItem(Self.infoItem("正在检查网络链路..."))
+            menu.addItem(summaryItem(title: "正在检查网络链路", detail: "OpenAI、Anthropic 和当前出口正在刷新。", status: "gray"))
         } else if let payload = lastPayload {
             let decision = payload.decision
-            menu.addItem(Self.statusItem(
+            menu.addItem(summaryItem(
                 title: decision?.title ?? payload.summary,
-                detail: decision?.detail,
-                status: decision?.status ?? Self.overallStatus(payload.results),
-                isStrong: true
+                detail: decision?.action ?? decision?.detail ?? payload.summaryText,
+                status: decision?.status ?? Self.overallStatus(payload.results)
             ))
-            if let action = decision?.action {
-                menu.addItem(Self.infoItem("下一步：" + action))
-            }
         } else {
-            menu.addItem(Self.infoItem("尚未检查"))
+            menu.addItem(summaryItem(title: "尚未检查", detail: "点击立即刷新后开始检测。", status: "gray"))
         }
 
         if let payload = lastPayload {
-            menu.addItem(.separator())
-
             if let agents = payload.agents {
                 menu.addItem(Self.sectionItem("常用软件"))
                 for agent in agents {
-                    menu.addItem(Self.statusItem(
-                        title: "\(agent.name)：\(agent.summary)",
+                    menu.addItem(Self.rowItem(
+                        title: agent.name,
+                        value: agent.summary,
                         detail: agent.suggestion,
                         status: agent.status
                     ))
                 }
-                menu.addItem(.separator())
             }
 
             menu.addItem(Self.sectionItem("链路明细"))
             for result in payload.results {
                 let ms = result.totalMs.map { "\(Int($0.rounded()))ms" } ?? "-"
-                menu.addItem(Self.statusItem(
-                    title: "\(result.name)：\(ms)",
-                    detail: "\(result.reason)\n\(result.suggestion)",
+                menu.addItem(Self.rowItem(
+                    title: result.name,
+                    value: ms,
+                    detail: result.reason,
                     status: result.status
                 ))
             }
 
-            menu.addItem(.separator())
+            var environmentRows: [(String, String, String)] = []
             if let egress = payload.egress {
                 let ip = egress.maskedIp.map { " · " + $0 } ?? ""
-                let egressItem = Self.statusItem(
-                    title: "当前出口：" + egress.label + ip,
-                    detail: egress.reason,
-                    status: egress.status
-                )
-                menu.addItem(egressItem)
-                menu.addItem(Self.infoItem("网络类型：" + egress.networkType))
+                environmentRows.append(("当前出口", egress.label + ip, egress.status))
+                environmentRows.append(("网络类型", egress.networkType, "gray"))
             }
-
             let proxyText = payload.proxyEnv.isEmpty ? "未检测到代理环境变量" : "代理环境变量：" + payload.proxyEnv.joined(separator: ", ")
-            menu.addItem(Self.infoItem(proxyText))
+            environmentRows.append(("代理状态", proxyText, payload.proxyEnv.isEmpty ? "gray" : "green"))
 
             if let lastUpdated {
                 let formatter = DateFormatter()
                 formatter.dateFormat = "HH:mm:ss"
-                menu.addItem(Self.infoItem("更新时间：" + formatter.string(from: lastUpdated)))
+                environmentRows.append(("更新时间", formatter.string(from: lastUpdated), "gray"))
             }
+            menu.addItem(Self.sectionItem("网络环境"))
+            menu.addItem(Self.infoGroupItem(rows: environmentRows))
 
-            menu.addItem(.separator())
-            menu.addItem(Self.sectionItem("最近异常"))
             let history = loadHistory()
-            if history.isEmpty {
-                menu.addItem(Self.infoItem("暂无异常记录"))
-            } else {
+            if !history.isEmpty {
+                menu.addItem(Self.sectionItem("最近异常"))
                 let formatter = DateFormatter()
                 formatter.dateFormat = "HH:mm"
-                for entry in history.prefix(5) {
-                    menu.addItem(Self.statusItem(
-                        title: "\(formatter.string(from: entry.date)) \(entry.title)",
+                for entry in history.prefix(3) {
+                    menu.addItem(Self.rowItem(
+                        title: formatter.string(from: entry.date),
+                        value: entry.title,
                         detail: entry.detail,
                         status: entry.status
                     ))
@@ -282,36 +274,17 @@ final class AgentPingMenuApp: NSObject, NSApplicationDelegate {
             }
         }
 
-        menu.addItem(.separator())
-        let copyItem = NSMenuItem(title: "复制诊断报告", action: #selector(copyReport), keyEquivalent: "c")
-        copyItem.target = self
-        copyItem.isEnabled = lastPayload?.report != nil
-        menu.addItem(copyItem)
-
-        let refreshItem = NSMenuItem(title: "立即刷新", action: #selector(refreshFromMenu), keyEquivalent: "r")
-        refreshItem.target = self
-        menu.addItem(refreshItem)
-
-        let quitItem = NSMenuItem(title: "退出 Ageng网络医生", action: #selector(quit), keyEquivalent: "q")
-        quitItem.target = self
-        menu.addItem(quitItem)
-        statusItem.menu = menu
+        menu.addItem(Self.separatorItem())
+        menu.addItem(actionsItem())
+        attachMenuIfNeeded()
     }
 
     private func rebuildFailureMenu() {
         menu.removeAllItems()
-        menu.addItem(Self.statusItem(title: "Ageng网络医生 检查失败", detail: nil, status: "red", isStrong: true))
-        menu.addItem(Self.infoItem("请确认工具文件仍在 App 资源目录中。"))
-        menu.addItem(.separator())
-
-        let refreshItem = NSMenuItem(title: "立即刷新", action: #selector(refreshFromMenu), keyEquivalent: "r")
-        refreshItem.target = self
-        menu.addItem(refreshItem)
-
-        let quitItem = NSMenuItem(title: "退出 Ageng网络医生", action: #selector(quit), keyEquivalent: "q")
-        quitItem.target = self
-        menu.addItem(quitItem)
-        statusItem.menu = menu
+        menu.addItem(summaryItem(title: "Ageng网络医生检查失败", detail: "请确认工具文件仍在 App 资源目录中。", status: "red"))
+        menu.addItem(Self.separatorItem())
+        menu.addItem(actionsItem())
+        attachMenuIfNeeded()
     }
 
     private func recordAnomalyIfNeeded(_ payload: AgentPingPayload) {
@@ -348,26 +321,63 @@ final class AgentPingMenuApp: NSObject, NSApplicationDelegate {
         return history
     }
 
+    private func attachMenuIfNeeded() {
+        if statusItem.menu !== menu {
+            statusItem.menu = menu
+        }
+    }
+
+    private func summaryItem(title: String, detail: String, status: String) -> NSMenuItem {
+        let height: CGFloat = 104
+        let view = Self.baseView(height: height)
+        let dot = Self.dotView(status: status, frame: NSRect(x: 16, y: height - 31, width: 11, height: 11))
+        view.addSubview(dot)
+        view.addSubview(Self.label(title, frame: NSRect(x: 35, y: height - 38, width: 260, height: 24), size: 15, weight: .semibold, color: .labelColor))
+
+        let statusText = Self.statusLabel(status)
+        view.addSubview(Self.label(statusText, frame: NSRect(x: 290, y: height - 37, width: 55, height: 22), size: 12, weight: .semibold, color: Self.statusColor(status), alignment: .right))
+
+        view.addSubview(Self.label(detail, frame: NSRect(x: 16, y: 37, width: 330, height: 34), size: 12, weight: .regular, color: .secondaryLabelColor, lines: 2))
+
+        let footerText: String
+        if let lastUpdated {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "HH:mm:ss"
+            footerText = "更新 \(formatter.string(from: lastUpdated))"
+        } else {
+            footerText = "等待首次检查"
+        }
+        view.addSubview(Self.badgeLabel(footerText, frame: NSRect(x: 16, y: 12, width: 118, height: 22)))
+        if let egress = lastPayload?.egress?.label {
+            view.addSubview(Self.badgeLabel("出口 \(egress)", frame: NSRect(x: 142, y: 12, width: 156, height: 22)))
+        }
+
+        return Self.customItem(view)
+    }
+
     nonisolated private static func menuBarIcon() -> NSImage {
-        let size = NSSize(width: 16, height: 16)
+        let size = NSSize(width: 17, height: 17)
         let image = NSImage(size: size)
         image.lockFocus()
         defer { image.unlockFocus() }
 
-        NSColor.labelColor.setFill()
         let mark = NSAttributedString(
             string: "P",
             attributes: [
-                .font: NSFont.systemFont(ofSize: 13.4, weight: .semibold),
+                .font: NSFont.systemFont(ofSize: 14.8, weight: .heavy),
                 .foregroundColor: NSColor.labelColor,
-                .kern: -0.3,
+                .kern: -0.6,
             ]
         )
         let markSize = mark.size()
+        let context = NSGraphicsContext.current?.cgContext
+        context?.saveGState()
+        context?.concatenate(CGAffineTransform(a: 1, b: 0, c: -0.18, d: 1, tx: 2.1, ty: 0))
         mark.draw(at: NSPoint(
-            x: (size.width - markSize.width) / 2,
-            y: (size.height - markSize.height) / 2 - 0.4
+            x: (size.width - markSize.width) / 2 - 0.1,
+            y: (size.height - markSize.height) / 2 - 0.8
         ))
+        context?.restoreGState()
 
         image.isTemplate = true
         return image
@@ -425,54 +435,133 @@ final class AgentPingMenuApp: NSObject, NSApplicationDelegate {
         return value
     }
 
-    nonisolated private static func sectionItem(_ title: String) -> NSMenuItem {
-        let item = NSMenuItem(title: title, action: nil, keyEquivalent: "")
-        item.attributedTitle = NSAttributedString(
-            string: title,
-            attributes: [
-                .font: NSFont.systemFont(ofSize: 12, weight: .semibold),
-                .foregroundColor: NSColor.secondaryLabelColor,
-            ]
-        )
+    private static func customItem(_ view: NSView) -> NSMenuItem {
+        let item = NSMenuItem()
+        item.view = view
         return item
     }
 
-    nonisolated private static func infoItem(_ title: String) -> NSMenuItem {
-        let item = NSMenuItem(title: title, action: nil, keyEquivalent: "")
-        item.attributedTitle = NSAttributedString(
-            string: title,
-            attributes: [
-                .font: NSFont.systemFont(ofSize: 13, weight: .regular),
-                .foregroundColor: NSColor.labelColor,
-            ]
-        )
-        item.toolTip = title
-        return item
+    private static func baseView(height: CGFloat) -> NSView {
+        let view = NSView(frame: NSRect(x: 0, y: 0, width: menuWidth, height: height))
+        view.wantsLayer = true
+        view.layer?.backgroundColor = NSColor.clear.cgColor
+        return view
     }
 
-    nonisolated private static func statusItem(title: String, detail: String?, status: String, isStrong: Bool = false) -> NSMenuItem {
-        let item = NSMenuItem(title: title, action: nil, keyEquivalent: "")
-        let value = NSMutableAttributedString(
-            string: "● ",
-            attributes: [
-                .font: NSFont.systemFont(ofSize: isStrong ? 14 : 13, weight: .semibold),
-                .foregroundColor: statusColor(status),
-            ]
-        )
-        value.append(NSAttributedString(
-            string: title,
-            attributes: [
-                .font: NSFont.systemFont(ofSize: isStrong ? 14 : 13, weight: isStrong ? .semibold : .regular),
-                .foregroundColor: NSColor.labelColor,
-            ]
-        ))
-        item.attributedTitle = value
-        item.toolTip = detail
-        return item
+    private static func label(
+        _ text: String,
+        frame: NSRect,
+        size: CGFloat,
+        weight: NSFont.Weight,
+        color: NSColor,
+        alignment: NSTextAlignment = .left,
+        lines: Int = 1
+    ) -> NSTextField {
+        let label = NSTextField(labelWithString: text)
+        label.frame = frame
+        label.font = NSFont.systemFont(ofSize: size, weight: weight)
+        label.textColor = color
+        label.alignment = alignment
+        label.lineBreakMode = lines > 1 ? .byWordWrapping : .byTruncatingTail
+        label.maximumNumberOfLines = lines
+        label.toolTip = text
+        return label
+    }
+
+    private static func badgeLabel(_ text: String, frame: NSRect) -> NSTextField {
+        let label = label(text, frame: frame, size: 11.5, weight: .medium, color: .secondaryLabelColor, alignment: .center)
+        label.wantsLayer = true
+        label.layer?.cornerRadius = 5
+        label.layer?.backgroundColor = NSColor.controlBackgroundColor.withAlphaComponent(0.72).cgColor
+        return label
+    }
+
+    private static func dotView(status: String, frame: NSRect) -> NSView {
+        let dot = NSView(frame: frame)
+        dot.wantsLayer = true
+        dot.layer?.cornerRadius = min(frame.width, frame.height) / 2
+        dot.layer?.backgroundColor = statusColor(status).cgColor
+        return dot
+    }
+
+    private static func statusLabel(_ status: String) -> String {
+        switch status {
+        case "green":
+            return "正常"
+        case "yellow":
+            return "谨慎"
+        case "red":
+            return "异常"
+        default:
+            return "检查中"
+        }
+    }
+
+    private static func sectionItem(_ title: String) -> NSMenuItem {
+        let height: CGFloat = 28
+        let view = baseView(height: height)
+        view.addSubview(label(title, frame: NSRect(x: 16, y: 5, width: 220, height: 17), size: 12, weight: .semibold, color: .secondaryLabelColor))
+        return customItem(view)
+    }
+
+    private static func separatorItem() -> NSMenuItem {
+        let view = baseView(height: 11)
+        let line = NSView(frame: NSRect(x: 16, y: 5, width: menuWidth - 32, height: 1))
+        line.wantsLayer = true
+        line.layer?.backgroundColor = NSColor.separatorColor.withAlphaComponent(0.58).cgColor
+        view.addSubview(line)
+        return customItem(view)
+    }
+
+    private static func rowItem(title: String, value: String, detail: String?, status: String) -> NSMenuItem {
+        let height: CGFloat = detail?.isEmpty == false ? 50 : 38
+        let view = baseView(height: height)
+        view.addSubview(dotView(status: status, frame: NSRect(x: 16, y: height - 25, width: 10, height: 10)))
+        view.addSubview(label(title, frame: NSRect(x: 34, y: height - 31, width: 128, height: 19), size: 13, weight: .medium, color: .labelColor))
+        view.addSubview(label(value, frame: NSRect(x: 166, y: height - 31, width: 188, height: 19), size: 13, weight: .semibold, color: statusColor(status), alignment: .right))
+        if let detail, !detail.isEmpty {
+            view.addSubview(label(detail, frame: NSRect(x: 34, y: 8, width: 320, height: 16), size: 11.5, weight: .regular, color: .secondaryLabelColor))
+        }
+        return customItem(view)
+    }
+
+    private static func infoGroupItem(rows: [(String, String, String)]) -> NSMenuItem {
+        let rowHeight: CGFloat = 25
+        let height = CGFloat(rows.count) * rowHeight + 12
+        let view = baseView(height: height)
+        view.wantsLayer = true
+        view.layer?.cornerRadius = 8
+        view.layer?.backgroundColor = NSColor.controlBackgroundColor.withAlphaComponent(0.34).cgColor
+        for (index, row) in rows.enumerated() {
+            let y = height - 10 - CGFloat(index + 1) * rowHeight
+            view.addSubview(label(row.0, frame: NSRect(x: 16, y: y, width: 82, height: 18), size: 12, weight: .regular, color: .secondaryLabelColor))
+            view.addSubview(label(row.1, frame: NSRect(x: 102, y: y, width: 248, height: 18), size: 12, weight: .medium, color: statusColor(row.2), alignment: .right))
+        }
+        return customItem(view)
+    }
+
+    private func actionsItem() -> NSMenuItem {
+        let height: CGFloat = 52
+        let view = Self.baseView(height: height)
+        let copyButton = actionButton(title: "复制报告", frame: NSRect(x: 16, y: 11, width: 104, height: 30), action: #selector(copyReport))
+        copyButton.isEnabled = lastPayload?.report != nil
+        view.addSubview(copyButton)
+        view.addSubview(actionButton(title: "立即刷新", frame: NSRect(x: 132, y: 11, width: 104, height: 30), action: #selector(refreshFromMenu)))
+        view.addSubview(actionButton(title: "退出", frame: NSRect(x: 248, y: 11, width: 104, height: 30), action: #selector(quit)))
+        return Self.customItem(view)
+    }
+
+    private func actionButton(title: String, frame: NSRect, action: Selector) -> NSButton {
+        let button = NSButton(title: title, target: self, action: action)
+        button.frame = frame
+        button.bezelStyle = .rounded
+        button.controlSize = .small
+        button.font = NSFont.systemFont(ofSize: 12, weight: .medium)
+        return button
     }
 
     @objc private func refreshFromMenu() {
-        refresh()
+        refresh(keepMenuOpen: true)
     }
 
     @objc private func copyReport() {

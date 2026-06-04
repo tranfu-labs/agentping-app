@@ -1,5 +1,17 @@
 <svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect x="96" y="96" width="832" height="832" rx="188" fill="#E63138"/>
-  <text x="512" y="720" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif" font-size="610" font-weight="800" fill="white">P</text>
-  <circle cx="684" cy="318" r="38" fill="#0C0C0C" opacity="0.22"/>
+  <defs>
+    <linearGradient id="g" x1="190" y1="130" x2="820" y2="900" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF3A40"/>
+      <stop offset="1" stop-color="#C1131A"/>
+    </linearGradient>
+    <filter id="s" x="180" y="180" width="640" height="660" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="18" dy="24" stdDeviation="18" flood-color="#000" flood-opacity=".22"/>
+    </filter>
+  </defs>
+  <rect x="94" y="94" width="836" height="836" rx="194" fill="url(#g)"/>
+  <rect x="154" y="148" width="716" height="58" rx="29" fill="#fff" opacity=".16"/>
+  <g filter="url(#s)" transform="skewX(-12)">
+    <text x="552" y="714" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif" font-size="635" font-weight="900" fill="white" letter-spacing="-28">P</text>
+  </g>
+  <path d="M596 704H798" stroke="white" stroke-width="36" stroke-linecap="round" opacity=".92"/>
 </svg>
