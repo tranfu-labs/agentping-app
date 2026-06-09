@@ -1,0 +1,8 @@
+.git
+.DS_Store
+.build/
+.swiftpm/
+dist/
+__pycache__/
+*.pyc
+Assets/AgentPing.iconset/
